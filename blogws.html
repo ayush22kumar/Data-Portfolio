@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Ayush Kumar | Data Portfolio</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Free Website Template" name="keywords">
+        <meta content="Free Website Template" name="description">
+
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="icon">
+
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+        <!-- CSS Libraries -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="lib/animate/animate.min.css" rel="stylesheet">
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+
+        <link rel="icon" href="img/portfolio-icon.png" sizes="16x16" type="image/png">
+	    <link rel="icon" href="img/portfolio-icon.png" sizes="32x32" type="image/png">
+	    <link rel="icon" href="img/portfolio-icon.png" sizes="48x48" type="image/png">
+	    <link rel="icon" href="img/portfolio-icon.png" sizes="64x64" type="image/png">
+	    <link rel="icon" href="img/portfolio-icon.png" sizes="128x128" type="image/png">
+    </head>
+
+    <body data-spy="scroll" data-target=".navbar" data-offset="51">
+        <!-- Nav Bar Start -->
+        <div class="navbar navbar-expand-lg bg-light navbar-light">
+            <div class="container-fluid">
+                <a href="index.html" class="navbar-brand">AYUSH KUMAR</a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto">
+                        <!--<a href="#currentblog" class="nav-item nav-link">Blog</a>-->
+                        <a href="index.html" class="nav-item nav-link">Home</a>
+                        <a href="#portfolio" class="nav-item nav-link">Projects</a>
+                        <a href="#blog" class="nav-item nav-link">Blogs</a>
+                        <a href="#contact" class="nav-item nav-link">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Nav Bar End -->
+
+
+        <!-- Hero Start -->
+        <div class="hero" id="currentblog">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-sm-10">
+                        <div class="hero-content">
+                            <div class="hero-text">
+                                <p>Web Scraping using API</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Hero End -->
+
+
+        <!-- About Start -->
+        <div class="service" data-wow-delay="0.1s" id="about">
+            <div class="container-fluid">
+                
+                <div class="container banner-text text-left" style="max-width: 1050px;">
+                    <p>
+
+<h5>Setup</h5>
+<p>In this blog post, we'll walk through the process of building a data scraper for Zomato, one of the leading food delivery platforms. We'll break down the process into two main steps: fetching paginated order data using Zomato's API and then extracting detailed order information for each item.									</p>
+<p>We will make use of python along with its requests package which can be used to automate web requests including scraping, testing and web automation. The post assumes basic knowledge of python and the concept of web API.</p>
+
+<br>
+<hr>
+<br>
+
+<h5>Prerequisites: Copying headers for a Web Request</h5>
+<p>Each request done by a web browser is captured in the network console. We can simply right click the request and select copy headers to get the headers used in the below codes. Note: You will need to login to the Zomato platform and copy the headers for a request to get auth details for running the below codes.</p>
+<p>Checkout this <a href="https://www.scraperapi.com/blog/headers-and-cookies-for-web-scraping/" target="_blank">blog </a> for more information on how to get headers for requests. </p>
+<p><h6>Python libraries used: </h6> requests; pandas; JSON; dateutil; re; pprint; time</p>
+
+<br>
+<hr>
+<br>
+
+<h5>Step 1: Fetching Paginated Order Data</h5>
+<p>The first step in our data scraping journey involves fetching paginated order data from Zomato's API. We start by obtaining a valid cookie from the server to authenticate our requests. Then, we iterate through the paginated order history, fetching data for each page until we reach the last page. We store the fetched data in a JSON file for further processing.									</p>
+<pre style="background-color: white; padding: 20px;"><code># Code snippet for extracting detailed order information
+import requests
+import json
+
+if __name__ == "__main__":
+#get cookie from server
+headers = {'accept': '', 'accept-language': '', 'sec-ch-ua': '', 
+'sec-ch-ua-mobile': '', 'sec-ch-ua-platform': '', 'sec-fetch-dest': '', 
+'sec-fetch-mode': '', 'sec-fetch-site': '', 'x-zomato-csrft': '', 
+'Referer': '', 'Referrer-Policy': '', 'User-Agent': '',
+'cookie': ''}
+
+dataset = []
+total_pages = None
+current_page = 1
+
+while True:
+
+if total_pages and current_page == total_pages:
+break
+
+r = requests.get(url='https://www.zomato.com/webroutes/user/orders?page={0}'.format(current_page),
+         headers=headers)
+current_page += 1
+print(r.json())
+data = r.json()
+total_pages = data['sections']['SECTION_USER_ORDER_HISTORY']['totalPages']
+dataset.append(data)
+
+filename = r'C:\Users\user1\data.json'
+f = open(filename, 'w')
+json.dump(dataset, f)</code></pre>
+
+                        <hr class="major" />
+
+                        <h2>Step 2: Extracting Detailed Order Information</h2>
+
+                        <ul>
+                            <li><strong>Reading Paginated Data:</strong> The script reads the JSON file (data.json) containing the paginated order data obtained from Step 1. It loads the JSON content into memory for further processing.</li>
+                            <li><strong>Iterating Through Orders:</strong> It iterates through each page of order data and extracts the unique identifiers (hash IDs) for each order item. These hash IDs are essential for fetching detailed information about each item.</li>
+                            <li><strong>Fetching Detailed Information:</strong> For each hash ID, the script sends a GET request to another Zomato API endpoint (https://www.zomato.com/webroutes/order/details) to fetch detailed information about the order item.</li>
+                            <li><strong>Data Storage:</strong> The fetched detailed information, along with the corresponding hash ID, is stored in a list called <code>dataset</code>. This list contains dictionaries, with each dictionary representing an order item and its details.</li>
+                            <li><strong>Rate Limiting:</strong> To avoid overloading the server, a time delay of 0.5 seconds (<code>time.sleep(0.5)</code>) is introduced between each request.</li>
+                            <li><strong>Final Data Storage:</strong> Once all detailed information is fetched, the entire dataset is stored in another JSON file (data_per_item.json) for further analysis.</li>
+                        </ul>
+                        <pre><code># Code snippet for extracting detailed order information
+import json
+import requests
+import time
+
+
+if __name__ == "__main__":
+#get cookie from server
+headers = {'accept': '', 'accept-language': '', 'sec-ch-ua': '', 
+'sec-ch-ua-mobile': '', 'sec-ch-ua-platform': '', 'sec-fetch-dest': '', 
+'sec-fetch-mode': '', 'sec-fetch-site': '', 'x-zomato-csrft': '', 
+'Referer': '', 'Referrer-Policy': '', 'User-Agent': '',
+'cookie': ''}
+
+hashlist = []
+
+order_file = r'C:\Users\user1\data.json'
+order_json = json.load(open(order_file,'r'))
+
+for _page in order_json:
+for k,v in _page['entities']['ORDER'].items():
+hashlist.append(v['hashId'])
+
+dataset = []
+
+for ind,_item in enumerate(hashlist):
+r = requests.get(url='https://www.zomato.com/webroutes/order/details?hashId={0}'.format(_item),
+             headers=headers)
+t = r.json()
+dataset.append({"hashid": _item, "data": t})
+time.sleep(0.5)
+
+filename = r'C:\Users\user1\data_per_item.json'
+json.dump(dataset, open(filename, 'w'))</code></pre>
+                    
+                    <hr class="major" />
+
+                    <h2>Step 3: Transforming JSON files into csv files.</h2>
+
+                    <p>The code will contain two functions one to parse the items for orders and another to parse the order data at a higher level.</p>
+                    
+                    <h3>Below steps explain the code for generating order data from orders file.</h3>
+                    <p><strong>Function process_order_data(datafile, outfile, per_item_file)</strong></p>
+                    <ul>
+                    <li><strong>Loading Per-Item Data:</strong> This function takes three arguments: <em>datafile</em> (path to the JSON file containing order data), <em>outfile</em> (path for the resulting CSV file), and <em>per_item_file</em> (path to the JSON file containing detailed order information per item). It loads the detailed item data from <em>per_item_file</em> into a dictionary called <em>itemdict</em>, where keys are <em>hashid</em> and values are dictionaries containing various cost-related information for each order.</li>
+                    <li><strong>Parsing Order Data:</strong> It iterates through each page of order data in <em>datafile</em>. For each order, it extracts relevant information such as <em>order_date</em>, <em>cost</em>, <em>payment_status</em>, <em>delivery_address</em>, <em>dish_string</em>, <em>restaurant_name</em>, <em>hashid</em>, and cost-related information (taxes, delivery charge, packing charge, discounts) from <em>itemdict</em>.</li>
+                    <li><strong>Constructing Dataset:</strong> For each order, it constructs a row containing the extracted information. These rows are appended to the <em>dataset</em> list.</li>
+                    <li><strong>Creating DataFrame and Saving as CSV:</strong> After parsing all orders, it creates a pandas DataFrame from the <em>dataset</em>, specifying column names (<em>datacols</em>). Finally, it saves the DataFrame as a CSV file using <code>df.to_csv()</code>.</li>
+                    </ul>
+
+                    <pre><code># Code snippet for extracting detailed order information
+import json
+import pprint
+import pandas
+import re
+from dateutil import parser
+
+
+def process_order_data(datafile, outfile, per_item_file):
+datacols = ['order_date', 'cost', 'payment_status', 'delivery_address', 'dish_string',
+    'resturant_name', 'hashid', 'taxes', 'delivery_charge', 'packing_charge', 'discounts']
+dataset = []
+
+item_json = json.load(open(per_item_file, 'r'))
+itemdict = {}
+for _rec in item_json:
+recdict = {}
+charge_dict = _rec['data']['details']['order']['items']
+
+taxes = sum([x['totalCost'] for x in charge_dict.get('tax', [])])
+
+delivery_charge = list(filter(lambda x: x['itemName'] == 'Delivery Charge', charge_dict.get('charge', [])))
+delivery_charge = delivery_charge[0]['totalCost'] if delivery_charge else 0
+
+packing_charge = list(filter(lambda x: x['itemName'] == 'Restaurant Packaging Charges', charge_dict.get('charge', [])))
+packing_charge = packing_charge[0]['totalCost'] if packing_charge else 0
+
+if charge_dict.get('voucher_discount'):
+discounts = sum([x['totalCost'] for x in charge_dict.get('voucher_discount')])
+else:
+discounts = 0
+
+costdict = {
+'taxes': taxes,
+'delivery_charge': delivery_charge,
+'packing_charge': packing_charge,
+'discounts': discounts,
+}
+
+for k,v in charge_dict.items():
+if k == 'dish':
+    continue
+recdict[k] = {}
+for _charge_item in v:
+    recdict[k][_charge_item['itemName']] = _charge_item['totalCost']
+
+itemdict[_rec['hashid']] = costdict
+
+
+currency_clean = re.compile(r'[^\d.,]+')
+
+jsondata = json.load(open(datafile, 'r'))
+for _page in jsondata:
+for k, v in _page['entities']['ORDER'].items():
+
+hashid = v['hashId']
+row = [parser.parse(v['orderDate']), currency_clean.sub('', v['totalCost']), v['paymentStatus'],
+       v['deliveryDetails']['deliveryAddress'],
+       v['dishString'], v['resInfo']['name'], hashid, itemdict[hashid]['taxes'],
+       itemdict[hashid]['delivery_charge'], itemdict[hashid]['packing_charge'],
+       itemdict[hashid]['discounts']]
+dataset.append(row)
+
+df = pandas.DataFrame(data=dataset, columns=datacols)
+df.to_csv(outfile, index=False)</code></pre>
+
+                    <h3>Lets look at how to generate item information for each order.</h3>
+                    <p><strong>Function parse_item_data(itemfile, itemoutfile)</strong></p>
+                        <ul>
+                        <li><strong>Opening JSON File:</strong> This function takes two arguments: <em>itemfile</em>, the path to the JSON file containing detailed order information per item, and <em>itemoutfile</em>, the path where the resulting CSV file will be saved. It opens the JSON file using <code>open()</code> and loads its contents into memory using <code>json.load()</code>.</li>
+                        <li><strong>Parsing JSON Data:</strong> It iterates through each record in the JSON data. For each record, it extracts the <em>hashid</em>, which is a unique identifier for the order, and the <em>item_data</em>, which contains detailed information about each item ordered.</li>
+                        <li><strong>Constructing Dataset:</strong> For each item in the <em>item_data</em>, it constructs a row containing the <em>hashid</em>, <em>itemname</em>, <em>unitcost</em>, <em>totalcost</em>, and <em>quantity</em> of the item. These rows are appended to the <em>dataset</em> list.</li>
+                        <li><strong>Creating DataFrame and Saving as CSV:</strong> After parsing all records, it creates a pandas DataFrame from the <em>dataset</em> list, specifying column names (<em>datacols</em>). Finally, it saves the DataFrame as a CSV file using <code>df.to_csv()</code>.</li>
+                    </ul>
+                        <pre><code># Code snippet for extracting detailed order information
+import json
+import pprint
+import pandas
+import re
+from dateutil import parser
+
+def parse_item_data(itemfile, itemoutfile):
+f = open(itemfile, 'r')
+datafile = json.load(f)
+datacols = ['hashid', 'itemname', 'unitcost', 'totalcost', 'quantity']
+dataset = []
+
+for _item in datafile:
+hashid = _item['hashid']
+item_data = _item['data']['details']['order']['items'].get('dish')
+if not item_data:
+continue
+for _dish in item_data:
+row = [hashid, _dish['itemName'], _dish['unitCost'], _dish['totalCost'], _dish['quantity']]
+dataset.append(row)
+
+df = pandas.DataFrame(data=dataset, columns=datacols)
+df.to_csv(itemoutfile, index=False)</code></pre>
+
+                    <hr class="major" />
+
+                    <h2>Both functions are called to generate final files.</h2>
+<pre><code># Code snippet for calling transformation functions.
+
+if __name__ == "__main__":
+
+itemdatafile = r'C:\Users\user1\data_per_item.json'
+itemoutfile = r'C:\Users\user1\data_per_item.csv'
+parse_item_data(itemdatafile, itemoutfile)
+
+datafile1 = r'C:\Users\user1\data.json'
+outfile1 = r'C:\Users\user1\data.csv'
+process_order_data(datafile1, outfile1, itemdatafile)</code></pre>
+                    
+                    <hr class="major" />
+
+                    <h2>Conclusion</h2>
+                    <p>The post explores how web api can be used to extract data from websites which make use of such technology, we also looked at some basic transformation to create a dataset which can be easily analysed using tools like Tableau, Power BI, Excel. To checkout further analysis on this dataset, click <a href="project_2.html" target="_blank">here</a>  to checkout my project on this dataset.</p>
+
+                    </section>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+
+
+        <!-- Portfolio Start -->
+        <div class="portfolio" id="portfolio">
+            <div class="container">
+                <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
+                    <p>My Portfolio</p>
+                    <h3><b>PROJECTS</b></h3>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <ul id="portfolio-filter">
+                            <li data-filter="*" class="filter-active">All</li>
+                            <li data-filter=".filter-1">Web Design</li>
+                            <li data-filter=".filter-2">Mobile Apps</li>
+                            <li data-filter=".filter-3">Game Dev</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row portfolio-container">
+                    <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-1 wow fadeInUp" data-wow-delay="0.0s">
+                        <div class="portfolio-wrap">
+                            <div class="portfolio-img">
+                                <img src="img/portfolio-1.jpg" alt="Image">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>eCommerce Website</h3>
+                                <a class="btn" href="img/portfolio-1.jpg" data-lightbox="portfolio">+</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-2 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="portfolio-wrap">
+                            <div class="portfolio-img">
+                                <img src="img/portfolio-2.jpg" alt="Image">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>Product Landing Page</h3>
+                                <a class="btn" href="img/portfolio-2.jpg" data-lightbox="portfolio">+</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-3 wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="portfolio-wrap">
+                            <div class="portfolio-img">
+                                <img src="img/portfolio-3.jpg" alt="Image">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>JavaScript quiz game</h3>
+                                <a class="btn" href="img/portfolio-3.jpg" data-lightbox="portfolio">+</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-1 wow fadeInUp" data-wow-delay="0.6s">
+                        <div class="portfolio-wrap">
+                            <div class="portfolio-img">
+                                <img src="img/portfolio-4.jpg" alt="Image">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>JavaScript drawing</h3>
+                                <a class="btn" href="img/portfolio-4.jpg" data-lightbox="portfolio">+</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-2 wow fadeInUp" data-wow-delay="0.8s">
+                        <div class="portfolio-wrap">
+                            <div class="portfolio-img">
+                                <img src="img/portfolio-5.jpg" alt="Image">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>Social Mobile Apps</h3>
+                                <a class="btn" href="img/portfolio-5.jpg" data-lightbox="portfolio">+</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-3 wow fadeInUp" data-wow-delay="1s">
+                        <div class="portfolio-wrap">
+                            <div class="portfolio-img">
+                                <img src="img/portfolio-6.jpg" alt="Image">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>Company Website</h3>
+                                <a class="btn" href="img/portfolio-6.jpg" data-lightbox="portfolio">+</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio End -->
+        
+
+        <!-- Blog Start -->
+        <div class="blog" id="blog">
+            <div class="container">
+                <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
+                    <h3><b>BLOGS & ARTICLES</b></h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="blog-item wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="blog-img">
+                                <img src="img/blog1.jpg" alt="Blog">
+                            </div>
+                            <div class="blog-text">
+                                <h6>Deciphering the dynamics of Voter Turnout: Evaluation of field experiments and Implications of Behaviour Change Theory</h6>
+                                <div class="blog-meta">
+                                    <p><i class="far fa-calendar-alt"></i>07-May-2024</p>
+                                    <p><i class="far fa-list-alt"></i>Behavior Change Theory</p>
+                                    <!-- <p><i class="far fa-comments"></i>5</p> -->
+                                </div>
+                                <a class="btn" href="blogbct.html">Read<i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="blog-item wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="blog-img">
+                                <img src="img/blog1.jpg" alt="Blog">
+                            </div>
+                            <div class="blog-text">
+                                <h6>Deciphering the dynamics of Voter Turnout: Evaluation of field experiments and Implications of Behaviour Change Theory</h6>
+                                <div class="blog-meta">
+                                    <p><i class="far fa-calendar-alt"></i>07-May-2024</p>
+                                    <p><i class="far fa-list-alt"></i>Behavior Change Theory</p>
+                                    <!-- <p><i class="far fa-comments"></i>5</p> -->
+                                </div>
+                                <a class="btn" href="blogbct.html">Read<i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Blog End -->
+
+
+        <!-- Footer Start -->
+        <div class="footer wow fadeIn" data-wow-delay="0.3s" id="contact">
+            <div class="container-fluid">
+                <div class="container">
+                    <div class="footer-info">
+                        <div class="section-header text-center">
+                            <h7 style="background-color: #607274; color: #F8EDE3;"><b>GET IN TOUCH</b></h7>
+                        </div>
+                        <h2>Ayush Kumar</h2>
+                        <h3>Leeds, United Kingdom</h3>
+                        <div class="footer-social">
+                            <a href="tel:+447425628440"><i class="fas fa-phone-alt"></i></a>
+                            <a href="mailto:ayush22kumar97@gmail.com"><i class="fas fa-envelope"></i></a>
+                            <a href="https://www.linkedin.com/in/ayush-kumar-401955117/"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://github.com/ayush22kumar97" target="_blank"><i class="fab fa-github"></i></a>
+                        </div>       
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+        
+        
+        <!-- Back to top button -->
+        <a href="#" class="btn back-to-top"><i class="fa fa-chevron-up"></i></a>
+         
+        <!-- Pre Loader -->
+        <div id="loader" class="show">
+            <div class="loader"></div>
+        </div>
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/wow/wow.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/typed/typed.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/isotope/isotope.pkgd.min.js"></script>
+        <script src="lib/lightbox/js/lightbox.min.js"></script>
+        
+        <!-- Contact Javascript File -->
+        <script src="mail/jqBootstrapValidation.min.js"></script>
+        <script src="mail/contact.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+    </body>
+</html>

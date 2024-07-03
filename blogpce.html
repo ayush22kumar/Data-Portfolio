@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Ayush Kumar | Data Portfolio</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Free Website Template" name="keywords">
+        <meta content="Free Website Template" name="description">
+
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="icon">
+
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+        <!-- CSS Libraries -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="lib/animate/animate.min.css" rel="stylesheet">
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+
+        <link rel="icon" href="img/portfolio-icon.png" sizes="16x16" type="image/png">
+	    <link rel="icon" href="img/portfolio-icon.png" sizes="32x32" type="image/png">
+	    <link rel="icon" href="img/portfolio-icon.png" sizes="48x48" type="image/png">
+	    <link rel="icon" href="img/portfolio-icon.png" sizes="64x64" type="image/png">
+	    <link rel="icon" href="img/portfolio-icon.png" sizes="128x128" type="image/png">
+    </head>
+
+    <body data-spy="scroll" data-target=".navbar" data-offset="51">
+        <!-- Nav Bar Start -->
+        <div class="navbar navbar-expand-lg bg-light navbar-light">
+            <div class="container-fluid">
+                <a href="index.html" class="navbar-brand">AYUSH KUMAR</a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto">
+                        <!--<a href="#currentblog" class="nav-item nav-link">Blog</a>-->
+                        <a href="index.html" class="nav-item nav-link">Home</a>
+                        <a href="#portfolio" class="nav-item nav-link">Projects</a>
+                        <a href="#blog" class="nav-item nav-link">Blogs</a>
+                        <a href="#contact" class="nav-item nav-link">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Nav Bar End -->
+
+
+        <!-- Hero Start -->
+        <div class="hero" id="currentblog">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-sm-10">
+                        <div class="hero-content">
+                            <div class="hero-text">
+                                <p>Forecasting the Personal Consumption Expenditure in the United States</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Hero End -->
+
+
+        <!-- About Start -->
+        <div class="service" data-wow-delay="0.1s" id="about">
+            <div class="container-fluid">
+                
+                <div class="container banner-text text-left" style="max-width: 800px;">
+                    <p>
+              
+<h5>Introduction</h5>
+<p>The objective of this report is to analyse and forecast the personal consumption expenditure (PCE) data for the US. The task required an evaluation of three different time-series forecasting models: a simple forecasting model, an exponential model, and ARIMA model. After analysing the time-series and detecting the best model, the report will forecast the expected value of PCE for the coming months. Also, one-step ahead rolling forecast value will be contrasted, without re-estimating the parameters.</p>
+<p>The ‘PCE.csv’ file consists of 779 rows with monthly recorded personal consumption expenditure data of US citizens with observations from January 1959 to November 2023. It consists of two columns: ‘DATE’ and ‘PCE’. Since the provided data was seasonally adjusted, there was just trend cycle and remainder components.</p>
+
+<br>
+<hr>
+<br>
+<h5>Data Preparation</h5>
+<i><h6>Interpolation:</h6></i>
+<p>Observing the data, it was found that about 43 values were missing for PCE, which is about 5.5 percentage of the dataset.</p>  
+<img src="img/blogpcefig1.png" alt="Image" style="width: 750px;">
+<i>Figure 1: Missing values.</i><br><br>
+<p>Imputation was required to deal with it, as we cannot continue the analysis with missing values in the dataset. The package ‘imputeS’ and its function ‘na_interpolation()’ were used for it. This function was used because it interpolates the missing values in a linear fashion and preserves the temporal structure of the data.</p>
+<img src="img/blogpcefig2.png" alt="Image" style="width: 750px;">
+<i>Figure 2: Imputed data.</i><br><br>
+
+
+<p>The dataset was ready for further analysis, building models, and forecasting once the missing values were imputed.</p> 
+<i><h6>Data Split:</h6></i>
+<p>Based on the Pareto principle, the dataset was then split in an 80:20 ratio and the last 20 percent values were set aside as the test set. The initial 80 percent of the dataset was used to train the different models and to evaluate their performances.</p>
+<img src="img/blogpcefig3.png" alt="Image" style="width: 750px;">
+<i>Figure 3: Training and test sets.</i><br><br>
+<p>Since the data was collected monthly, frequency of 12 was used to plot the time-series. The plot of PCE values with time showed an upward trend, indicating an increase in the consumption expenditure. A sharp dip was observed in the PCE value around the early to mid 2020. However, except the dip, the overall trend appears to be continual.</p>
+<img src="img/blogpcefig4.png" alt="Image" style="width: 750px;"><br>
+<i>Figure 4: PCE time-series.</i><br><br>
+<p>The seasonally adjusted dataset was then decomposed with a multiplicative model to observe the irregularities and varying trends, to enhance the forecasting accuracy. An evident upward trend was observed in the decomposed time-series, along with a random effect around the year 2020.</p>
+<img src="img/blogpcefig5.png" alt="Image" style="width: 750px;"><br>
+<i>Figure 5: Decomposed time-series.</i><br>
+
+<br>
+<hr>
+<br>
+<h5>Simple forecasting using Drift Model</h5>
+<p>The drift model was chosen as the simple forecasting model over the average, naïve and seasonal naïve models as it captures the dynamic upward or downward trends, and seasonal fluctuations effectively. Also, since the provided dataset was already seasonally adjusted, it was needless to consider seasonal patterns explicitly by using the seasonal naïve model. Furthermore, the average and naïve models do not accommodate residual seasonality and were likely to produce a biased forecast ignoring the existing trend in the data, contrary to the drift model. The drift model substantially addresses both short-term seasonality and long-term trends, and thus is more suitable for the PCE dataset having non-linear growth rate.</p>
+<p>The naïve method replaces the missing values with the last observed values, hence missing the trend. While the drift method considers both trend and residual seasonality for the same, ensuring precise predictions and forecasts. Another advantage of using the drift model over the other models was its resilience to outliers using robust regression techniques.</p>
+<img src="img/blogpcefig6.png" alt="Image" style="width: 750px;"><br>
+<i>Figure 6: PCE forecast by Drift model.</i><br><br>
+<p>The drift model performed exceptionally well on the training set having high accuracy metrics like low RMSE, MAE, and MAPE, and minimal errors. Although, the efficiency of the model decreased significantly on the test set, demonstrating a notable increase in errors and decline in the accuracy metrics. This discrepancy in the forecast accuracy of the training and test models indicates potential overfitting during the training of the model. Therefore, the drift model requires an enhanced generalisation method to mitigate the discrepancy between the performance of the training and test sets.</p>
+
+<br>
+<hr>
+<br>
+<h5>Exponential Smoothing through Holt’s Linear Trend Model</h5>
+<p>The Exponential models are preferred when the time-series shows trend, or seasonal patterns, or both, preferably when the exhibited patterns change over time and are not stable. Out of the three types of exponential models, the triple exponential smoothing model or Holt-Winters is regarded the best as it can handle both trend and seasonal components simultaneously. The single or simple exponential smoothing is selected when the data only has a pattern, with no trend or seasonality. Meanwhile, the second-order exponential smoothing or the Holt’s trend model is considered suitable for time-series having a trend but no seasonality.</p>
+<p>In this scenario, Holt’s trend model was preferred as the data is seasonally adjusted but has a trend. Also, since the trend of PCE in the dataset was not constant, but rather exponential, ‘multiplicative’ seasonal component was applied, instead of the default ‘additive’ component.</p>
+<img src="img/blogpcefig7.png" alt="Image" style="width: 750px;"><br>
+<i>Figure 7: Holt’s exponential smoothing on PCE dataset.</i><br><br>
+<p>The Holt’s trend model preformed significantly well for both the training and test sets, exhibiting admirable accuracy metrics with comparatively low errors. Although, the accuracy exhibited by the model for the test set was slightly lower than that for the training set, but the difference was minute. The minor variations in the forecasting accuracy, and a consistent overall performance, suggests that the model was able to generalise the data effectively.</p>
+
+<br>
+<hr>
+<br>
+<h5>ARIMA model</h5>
+<p>The ARIMA model is preferred when the time-series data is stationary or can be made stationary by differencing. Differencing is the process by which time-series showcasing trends are made stationary by taking differences between consecutive values. When the data is stationary, ARIMA captures the trends, seasonality, and even autocorrelation structures credibly. This model excels in capturing linear structures and forecasting short-term values.</p>
+<p>Uncertainty of a trend increases with time, hence the long-term predictions made using the ARIMA model are not quite effective. Moreover, ARIMA models need robust pre-processing of data and handling of outliers, as they are sensitive to missing values, outliers, and noise in the data, which can distort the parameter estimates, leading to inaccurate forecasts.</p> 
+<p>In a trended time-series, the observations closer in time also tend to be closer in value. Thus, autocorrelation values for short intervals are majorly high and positive and decreases as the time interval between observations is increased. For time-series analysis, ARIMA uses Autocorrection Function (ACF) and Partial Autocorrection Function (PACF) to identify the moving average order (Romer, et al., 2006). While ACF measures the correlation between time-series and its lagged values, PACF measures the same but after removing its immediate lags.</p>
+<p>Comparison of the autocorrelation plot of the training and test sets depict a decline in the correlation with time, suggesting that the dependency of PCE values on immediate values has decreased.</p>
+<img src="img/blogpcefig8.png" alt="Image" style="width: 750px;">
+<i>Figure 8: Autocorrelation of the training and test sets.</i><br><br>
+<p>Applying the ‘auto.arima()’ function, ARIMA with order 3,2,2 was found best suited to the training set. The model depicted creditable performance on both training and test sets, displaying high accuracy metrics and low errors. Like the Holt’s exponential model, ARIMA observed a marginal decrease in accuracy over the test model, as compared to the training model. The overall consistency of the model describes its robustness for forecasting future values.</p>
+
+<br>
+<hr>
+<br>
+<h5>Choosing the Best model</h5>
+<p>To select the best model for forecasting PCE, accuracy of the models was compared. Mean error (ME), root mean squared error (RMSE), mean absolute error (MAE), mean percentage error (MPE), mean absolute percentage error (MAPE), mean absolute scaled error (MASE), and autocorrelation of errors at lag 1 (ACF1) values of the models were contrasted for this, and preference was given to the one with lowest error values.</p>
+<img src="img/blogpcefig9.png" alt="Image" style="width: 750px;">
+<i>Figure 9: Accuracy comparison of the models</i> <br>
+<br>
+<img src="img/blogpcefig10.png" alt="Image" style="width: 750px;"><br>
+<i>Figure 10: Comparing plot of the models against real values.</i> 
+<br>
+<br>
+<hr>
+<br>
+<h5>Conclusion</h5>
+<p>Based on the comparisons from Figure 9 and Figure 10, the drift model displays significant accuracy over the training set but struggles over the test set. Although the dataset observes a non-linear upward trend, and ARIMA model performs commendably on both the data sets, the Holt’s exponential smoothing trend model displays a comparatively superior performance across all metrics. Therefore, due to the exemplary performance and lower risk of overfitting, the Holt’s exponential model was chosen for predicting the value of PCE in the US. Based on it, the expected US PCE for the upcoming months are as follows.</p>
+<img src="img/blogpcefig11.png" alt="Image" style="width: 750px;">
+<i>Figure 11: Forecast for forth-coming months.</i> 
+<br><br>
+<i><h6>One-step-ahead rolling forecast:</h6></i>
+<p>Since the initial values were re-estimated while applying the Holt’s model on the test set, one-step-ahead rolling forecast was done without re-estimating the parameters. This forecast predicts the value of the next period (h=1). Applying one-step-ahead, the value of October 2024 was found the same as predicted by the Holt’s model.</p>
+<img src="img/blogpcefig12.png" alt="Image" style="width: 750px;">
+<i>Figure 12: One-step-ahead rolling forecast.</i>
+
+
+                    </p></div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+
+
+        <!-- Portfolio Start -->
+        <div class="portfolio" id="portfolio">
+            <div class="container">
+                <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
+                    <p>My Portfolio</p>
+                    <h3><b>PROJECTS</b></h3>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <ul id="portfolio-filter">
+                            <li data-filter="*" class="filter-active">All</li>
+                            <li data-filter=".filter-1">Web Design</li>
+                            <li data-filter=".filter-2">Mobile Apps</li>
+                            <li data-filter=".filter-3">Game Dev</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row portfolio-container">
+                    <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-1 wow fadeInUp" data-wow-delay="0.0s">
+                        <div class="portfolio-wrap">
+                            <div class="portfolio-img">
+                                <img src="img/portfolio-1.jpg" alt="Image">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>eCommerce Website</h3>
+                                <a class="btn" href="img/portfolio-1.jpg" data-lightbox="portfolio">+</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-2 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="portfolio-wrap">
+                            <div class="portfolio-img">
+                                <img src="img/portfolio-2.jpg" alt="Image">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>Product Landing Page</h3>
+                                <a class="btn" href="img/portfolio-2.jpg" data-lightbox="portfolio">+</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-3 wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="portfolio-wrap">
+                            <div class="portfolio-img">
+                                <img src="img/portfolio-3.jpg" alt="Image">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>JavaScript quiz game</h3>
+                                <a class="btn" href="img/portfolio-3.jpg" data-lightbox="portfolio">+</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-1 wow fadeInUp" data-wow-delay="0.6s">
+                        <div class="portfolio-wrap">
+                            <div class="portfolio-img">
+                                <img src="img/portfolio-4.jpg" alt="Image">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>JavaScript drawing</h3>
+                                <a class="btn" href="img/portfolio-4.jpg" data-lightbox="portfolio">+</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-2 wow fadeInUp" data-wow-delay="0.8s">
+                        <div class="portfolio-wrap">
+                            <div class="portfolio-img">
+                                <img src="img/portfolio-5.jpg" alt="Image">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>Social Mobile Apps</h3>
+                                <a class="btn" href="img/portfolio-5.jpg" data-lightbox="portfolio">+</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-3 wow fadeInUp" data-wow-delay="1s">
+                        <div class="portfolio-wrap">
+                            <div class="portfolio-img">
+                                <img src="img/portfolio-6.jpg" alt="Image">
+                            </div>
+                            <div class="portfolio-text">
+                                <h3>Company Website</h3>
+                                <a class="btn" href="img/portfolio-6.jpg" data-lightbox="portfolio">+</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio End -->
+        
+
+        <!-- Blog Start -->
+        <div class="blog" id="blog">
+            <div class="container">
+                <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
+                    <h3><b>BLOGS & ARTICLES</b></h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="blog-item wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="blog-img">
+                                <img src="img/blog1.jpg" alt="Blog">
+                            </div>
+                            <div class="blog-text">
+                                <h6>Deciphering the dynamics of Voter Turnout: Evaluation of field experiments and Implications of Behaviour Change Theory</h6>
+                                <div class="blog-meta">
+                                    <p><i class="far fa-calendar-alt"></i>07-May-2024</p>
+                                    <p><i class="far fa-list-alt"></i>Behavior Change Theory</p>
+                                    <!-- <p><i class="far fa-comments"></i>5</p> -->
+                                </div>
+                                <a class="btn" href="blogbct.html">Read<i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="blog-item wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="blog-img">
+                                <img src="img/blog1.jpg" alt="Blog">
+                            </div>
+                            <div class="blog-text">
+                                <h6>Deciphering the dynamics of Voter Turnout: Evaluation of field experiments and Implications of Behaviour Change Theory</h6>
+                                <div class="blog-meta">
+                                    <p><i class="far fa-calendar-alt"></i>07-May-2024</p>
+                                    <p><i class="far fa-list-alt"></i>Behavior Change Theory</p>
+                                    <!-- <p><i class="far fa-comments"></i>5</p> -->
+                                </div>
+                                <a class="btn" href="blogbct.html">Read<i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Blog End -->
+
+
+        <!-- Footer Start -->
+        <div class="footer wow fadeIn" data-wow-delay="0.3s" id="contact">
+            <div class="container-fluid">
+                <div class="container">
+                    <div class="footer-info">
+                        <div class="section-header text-center">
+                            <h7 style="background-color: #607274; color: #F8EDE3;"><b>GET IN TOUCH</b></h7>
+                        </div>
+                        <h2>Ayush Kumar</h2>
+                        <h3>Leeds, United Kingdom</h3>
+                        <div class="footer-social">
+                            <a href="tel:+447425628440"><i class="fas fa-phone-alt"></i></a>
+                            <a href="mailto:ayush22kumar97@gmail.com"><i class="fas fa-envelope"></i></a>
+                            <a href="https://www.linkedin.com/in/ayush-kumar-401955117/"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://github.com/ayush22kumar97" target="_blank"><i class="fab fa-github"></i></a>
+                        </div>       
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+        
+        
+        <!-- Back to top button -->
+        <a href="#" class="btn back-to-top"><i class="fa fa-chevron-up"></i></a>
+         
+        <!-- Pre Loader -->
+        <div id="loader" class="show">
+            <div class="loader"></div>
+        </div>
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/wow/wow.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/typed/typed.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/isotope/isotope.pkgd.min.js"></script>
+        <script src="lib/lightbox/js/lightbox.min.js"></script>
+        
+        <!-- Contact Javascript File -->
+        <script src="mail/jqBootstrapValidation.min.js"></script>
+        <script src="mail/contact.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+    </body>
+</html>
