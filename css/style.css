@@ -38,6 +38,15 @@ a:focus {
     max-width: 1366px;
 }
 
+.btn2:focus,
+.form-control:focus {
+    box-shadow: none;
+}
+
+.container-fluid {
+    max-width: 1366px;
+}
+
 .btn {
     padding: 12px 25px;
     font-size: 14px;
@@ -381,6 +390,24 @@ a:focus {
     margin-right: 10px;
 }
 
+.hero .hero-btn2 .btn2 {
+    margin-top: 35px;
+    color: #666666;
+    background: #ffffff;
+    box-shadow: inset 0 0 0 50px #ffffff;
+}
+
+.hero .hero-btn2 .btn2:hover {
+    color: #ffffff;
+    background: transparent;
+    box-shadow: inset 0 0 0 0 #ffffff;
+    border-color: #ffffff;
+}
+
+.hero .hero-btn2 .btn2:first-child {
+    margin-right: 10px;
+}
+
 @media (max-width: 991.98px) {
     .hero {
         padding-top: 60px;
@@ -407,6 +434,11 @@ a:focus {
         padding: 12px 30px;
         letter-spacing: 1px;
     }
+
+    .hero .hero-btn2 .btn2 {
+        padding: 12px 30px;
+        letter-spacing: 1px;
+    }
 }
 
 @media (max-width: 767.98px) {
@@ -418,6 +450,13 @@ a:focus {
     .hero,
     .hero .hero-text,
     .hero .hero-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero,
+    .hero .hero-text,
+    .hero .hero-btn2 {
         width: 100%;
         text-align: center;
     }
@@ -439,6 +478,11 @@ a:focus {
         padding: 10px 15px;
         letter-spacing: 1px;
     }
+
+    .hero .hero-btn2 .btn2 {
+        padding: 10px 15px;
+        letter-spacing: 1px;
+    }
 }
 
 @media (max-width: 575.98px) {
@@ -456,6 +500,11 @@ a:focus {
     }
     
     .hero .hero-btn .btn {
+        padding: 8px 10px;
+        letter-spacing: 0;
+    }
+
+    .hero .hero-btn2 .btn2 {
         padding: 8px 10px;
         letter-spacing: 0;
     }
@@ -589,6 +638,10 @@ a:focus {
 }
 
 .about .about-text a.btn {
+    margin-top: 15px;
+}
+
+.about .about-text a.btn2 {
     margin-top: 15px;
 }
 
@@ -955,10 +1008,28 @@ a:focus {
 }
 
 .portfolio .portfolio-item:hover a.btn {
-    color: #607274;
+    color:#607274;
     background: transparent;
     box-shadow: inset 0 0 0 0 #607274;
-    border-color: #607274;
+    border-color:#607274;
+}
+
+.portfolio .portfolio-text a.btn2 {
+    width: 50px;
+    height: 50px;
+    padding: 0 0 2px 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 45px;
+    font-weight: 100;
+}
+
+.portfolio .portfolio-item:hover a.btn2 {
+    color: #666666;
+    background: transparent;
+    box-shadow: inset 0 0 0 0 #666666;
+    border-color: #666666;
 }
 
 
@@ -1014,6 +1085,20 @@ a:focus {
 }
 
 .banner .banner-text .btn:hover {
+    color: #ffffff;
+    background: transparent;
+    box-shadow: inset 0 0 0 0 #ffffff;
+    border-color: #ffffff;
+}
+
+.banner .banner-text .btn2 {
+    margin-top: 15px;
+    color:#666666;
+    background: #ffffff;
+    box-shadow: inset 0 0 0 50px #ffffff;
+}
+
+.banner .banner-text .btn2:hover {
     color: #ffffff;
     background: transparent;
     box-shadow: inset 0 0 0 0 #ffffff;
@@ -1139,6 +1224,32 @@ a:focus {
     border-color: #607274;
 }
 
+.price .price-item .price-action .btn2 {
+    color: #ffffff;
+    background: #414141;
+    box-shadow: inset 0 0 0 50px #414141;
+}
+
+.price .price-item .price-action .btn2:hover {
+    color: #414141;
+    background: transparent;
+    box-shadow: inset 0 0 0 0 #414141;
+    border-color: #414141;
+}
+
+.price .price-item.featured-item .price-action .btn2 {
+    color: #ffffff;
+    background: #666666;
+    box-shadow: inset 0 0 0 50px #666666;
+}
+
+.price .price-item.featured-item .price-action .btn2:hover {
+    color: #666666;
+    background: transparent;
+    box-shadow: inset 0 0 0 0 #666666;
+    border-color: #666666;
+}
+
 
 /*******************************/
 /*********** Team CSS **********/
@@ -1215,6 +1326,55 @@ a:focus {
     font-size: 14px;
     font-weight: normal;
     margin-right: 5px;
+}
+
+.team .team-social a.btn2 {
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: normal;
+    margin-right: 5px;
+}
+
+.btn2 {
+    margin-top: 15px;
+    padding: 12px 25px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #F8EDE3;
+    background: #666666;
+    border: 2px solid transparent;
+    border-radius: 0;
+    box-shadow: inset 0 0 0 50px #666666;
+    transition: ease-out 0.3s;
+    -webkit-transition: ease-out 0.3s;
+    -moz-transition: ease-out 0.3s;
+}
+
+.btn2:hover {
+    color: #666666;
+    background: transparent;
+    box-shadow: inset 0 0 0 0 #666666;
+    border-color: #666666;
+}
+
+.hero .hero-btn2 .btn2 {
+    margin-top: 35px;
+    color: #666666;
+    background: #ffffff;
+    box-shadow: inset 0 0 0 50px #ffffff;
+}
+
+.hero .hero-btn2 .btn2:hover {
+    color: #ffffff;
+    background: transparent;
+    box-shadow: inset 0 0 0 0 #ffffff;
+    border-color: #ffffff;
 }
 
 .team .team-item:hover {
