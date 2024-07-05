@@ -384,7 +384,7 @@ a:focus {
     position: relative;
     width: 100%;
     margin-bottom: 20px;
-    padding: 200px 0 100px 300px;
+    padding: 100px 0;
     overflow: hidden;
     background: linear-gradient(rgba(20, 15, 1, 0.75), rgba(20, 15, 1, 0.75)), url(../img/hero-bg.jpg);
     background-position: center;
@@ -393,7 +393,7 @@ a:focus {
 }
 
 .hero .container-fluid {
-    padding: 0;
+    padding: 0 15px;
 }
 
 .hero .hero-image {
@@ -413,6 +413,7 @@ a:focus {
     height: 250px;
     border-radius: 50%;
     overflow: hidden;
+    margin: 30px auto 0;
     display: inline-block;
   }
   
@@ -424,6 +425,7 @@ a:focus {
   }
 
 .hero .hero-content {
+    text-align: left;
     position: relative;
     padding-left: 75px;
     display: flex;
@@ -464,6 +466,10 @@ a:focus {
     font-size: 35px;
     font-weight: 300;
     color: #F8EDE3;
+}
+
+.hero .hero-btn {
+    margin-bottom: 35px;
 }
 
 .hero .hero-btn .btn {
