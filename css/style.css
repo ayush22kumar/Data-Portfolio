@@ -161,15 +161,109 @@ a:focus {
     object-fit: cover;
 }
 
-@media (max-width: 768px) {
-    .content-wrapper {
-        flex-direction: column;
+@media (max-width: 767px) {
+    /* General adjustments */
+    body {
+        font-size: 14px;
     }
-    
-    .image-content {
-        flex: 0 0 100%;
+
+    .container-fluid {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    /* Navigation adjustments */
+    .navbar-nav {
+        background-color: #F8EDE3;
+        padding: 10px;
+    }
+
+    .navbar-nav .nav-item {
+        margin-bottom: 5px;
+    }
+
+    /* Hero section adjustments */
+    .hero {
+        padding: 100px 0 50px 0;
+    }
+
+    .hero .hero-content {
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .hero .hero-text h1 {
+        font-size: 36px;
+    }
+
+    .hero .hero-text h2 {
+        font-size: 24px;
+        height: auto;
+    }
+
+    .profile-photo {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto 20px;
+    }
+
+    /* About section adjustments */
+    .about .about-content {
+        padding: 30px 15px;
+    }
+
+    /* Skills section adjustments */
+    .service-item {
+        margin-bottom: 30px;
+    }
+
+    /* Portfolio section adjustments */
+    .portfolio-container {
+        margin-bottom: 30px;
+    }
+
+    .portfolio .portfolio-item {
+        margin-bottom: 20px;
+    }
+
+    /* Footer adjustments */
+    .footer .footer-info h2 {
+        font-size: 24px;
+    }
+
+    .footer .footer-info h3 {
+        font-size: 14px;
+    }
+
+    .footer .footer-menu p {
+        font-size: 14px;
+        padding: 0 10px;
+    }
+
+    /* Adjust button sizes */
+    .btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    /* Adjust section headers */
+    .section-header h2 {
+        font-size: 28px;
+    }
+
+    .section-header p {
+        font-size: 14px;
+    }
+
+    /* Adjust spacing */
+    .section-header {
+        margin-bottom: 20px;
+    }
+
+    /* Make images responsive */
+    img {
         max-width: 100%;
-        margin-top: 20px;
+        height: auto;
     }
 }
 
