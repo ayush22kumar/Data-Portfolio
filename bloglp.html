@@ -28,20 +28,6 @@
 	    <link rel="icon" href="img/portfolio-icon.png" sizes="48x48" type="image/png">
 	    <link rel="icon" href="img/portfolio-icon.png" sizes="64x64" type="image/png">
 	    <link rel="icon" href="img/portfolio-icon.png" sizes="128x128" type="image/png">
-
-        <style>
-            .code-container {
-                background-color: white;
-                padding: 15px;
-                padding-left: 15px;
-                padding-bottom: 15px;
-                padding-right: 15px;
-                border-radius: 10px;
-            }
-            .code-comment {
-                color:green;
-            }
-        </style>
     </head>
 
     <body data-spy="scroll" data-target=".navbar" data-offset="51">
@@ -73,7 +59,7 @@
                     <div class="col-sm-10">
                         <div class="hero-content">
                             <div class="hero-text">
-                                <p>Web Scraping Using API</p>
+                                <p>Strategising Autonomous Delivery Trial: Maximising Delivery while Minimising the Cost and Manpower</p>
                             </div>
                         </div>
                     </div>
@@ -88,184 +74,197 @@
             <div class="container-fluid">
                 
                 <div class="container banner-text text-left" style="max-width: 800px;">
-                    <p>
-                        <p class="text-justify">In this blog post, we will walk through the process of building a data scraper for Zomato, one of the leading food delivery platforms. The process will be broken down into three main steps: fetching paginated order data using Zomato's API, extracting detailed order information for each item, and transforming the data into CSV files for analysis. We will use Python along with its `requests` package to automate web requests.</p>
-                        <br><hr><br>
-                        <h5>Prerequisites</h5>
-                        <ul class="text-justify">
-                            <li>Basic knowledge of Python and web APIs.</li>
-                            <li>A Zomato account to fetch the necessary headers for authentication.</li>
-                            <li>Python libraries: 'requests', 'pandas', 'json', 'dateutil', 're', 'time'.</li>
-                        </ul>
-                        <br><hr><br>
-                        <h5>Step 1: Fetching Paginated Order Data</h5>
-                        <p class="text-justify">First, we need to fetch paginated order data from Zomato's API. We start by obtaining valid headers from the browser to authenticate our requests. Then, we iterate through the paginated order history, fetching data for each page until we reach the last page. The fetched data is stored in a JSON file for further processing.</p>
-                        <pre class="code-container"><code>import requests
-import json
+                    <p class="text-justify">
+              
+                        <p class="text-justify">In the bustling city of Leeds, the start-up AutonomousShipment is gearing up to revolutionize last-mile logistics with the integration of robot drones into their delivery system. As part of their innovative approach, AutonomousShipment plans to use these drones to deliver products from grocery, clothing, sports, and tech stores directly to customers' doorsteps.</p>
 
-if __name__ == "__main__":
-<span class="code-comment">
-    # Replace with the headers obtained from your browser session</span>
-    headers = {
-        'accept': '',
-        'accept-language': '',
-        'cookie': '',
-        'user-agent': '',
-        'x-zomato-csrft': '',
-        'referer': '',
-        'sec-fetch-site': '',
-    }
-
-    dataset = []
-    total_pages = None
-    current_page = 1
-
-    while True:
-        if total_pages and current_page > total_pages:
-            break
-
-        url = f'https://www.zomato.com/webroutes/user/orders?page={current_page}'
-        response = requests.get(url, headers=headers)
-        data = response.json()
-        total_pages = data['sections']['SECTION_USER_ORDER_HISTORY']['totalPages']
-        dataset.append(data)
-        current_page += 1
-
-    with open('<span class="code-comment"># Complete path of your data.json file</span>', 'w') as f:
-        json.dump(dataset, f)</code></pre>
-                        <br><hr><br>
-                        <h5>Step 2: Extracting Detailed Order Information</h5>
-                        <p class="text-justify">Next, we will extract detailed information for each order item. This involves reading the JSON file containing the paginated order data, extracting unique identifiers (hash IDs) for each order item, and then fetching detailed information using another Zomato API endpoint.</p>
-                        <pre class="code-container"><code>import time
-
-if __name__ == "__main__":
-<span class="code-comment">
-    # Replace with the headers obtained from your browser session</span>
-    headers = {
-        'accept': '',
-        'accept-language': '',
-        'cookie': '',
-        'user-agent': '',
-        'x-zomato-csrft': '',
-        'referer': '',
-        'sec-fetch-site': '',
-    }
-
-    with open('<span class="code-comment"># Complete path of your data.json file</span>', 'r') as f:
-        order_json = json.load(f)
-
-    hashlist = []
-    for page in order_json:
-        for order in page['entities']['ORDER'].values():
-            hashlist.append(order['hashId'])
-
-    dataset = []
-    for hash_id in hashlist:
-        url = f'https://www.zomato.com/webroutes/order/details?hashId={hash_id}'
-        response = requests.get(url, headers=headers)
-        data = response.json()
-        dataset.append({"hashid": hash_id, "data": data})
-        time.sleep(0.5)
-
-    with open('<span class="code-comment"># Complete path of your data_per_item.json file</span>', 'w') as f:
-        json.dump(dataset, f)</code></pre>
-                        <br><hr><br>
-                        <h5>Step 3: Transforming JSON Files into CSV Files</h5>
-                        <p class="text-justify">In this step, we will transform the JSON files into CSV files for easier analysis. We will create two CSV files: one for order data and another for detailed item information.</p>
-                        <br><h6>Function to Process Order Data</h6>
-                        <pre class="code-container"><code>import pandas as pd
-import re
-from dateutil import parser
-
-def process_order_data(datafile, outfile, per_item_file):
-    datacols = ['order_date', 'cost', 'payment_status', 'delivery_address', 'dish_string', 'restaurant_name', 'hashid', 'taxes', 'delivery_charge', 'packing_charge', 'discounts']
-    dataset = []
-
-    with open(per_item_file, 'r') as f:
-        item_json = json.load(f)
-
-    itemdict = {}
-    for record in item_json:
-        recdict = {}
-        charge_dict = record['data']['details']['order']['items']
-
-        taxes = sum(x['totalCost'] for x in charge_dict.get('tax', []))
-
-        delivery_charge = next((x['totalCost'] for x in charge_dict.get('charge', []) if x['itemName'] == 'Delivery Charge'), 0)
-        packing_charge = next((x['totalCost'] for x in charge_dict.get('charge', []) if x['itemName'] == 'Restaurant Packaging Charges'), 0)
-        discounts = sum(x['totalCost'] for x in charge_dict.get('voucher_discount', []))
-
-        costdict = {
-            'taxes': taxes,
-            'delivery_charge': delivery_charge,
-            'packing_charge': packing_charge,
-            'discounts': discounts,
-        }
-
-        itemdict[record['hashid']] = costdict
-
-    currency_clean = re.compile(r'[^\d.,]+')
-
-    with open(datafile, 'r') as f:
-        jsondata = json.load(f)
-
-    for page in jsondata:
-        for order in page['entities']['ORDER'].values():
-            hashid = order['hashId']
-            row = [
-                parser.parse(order['orderDate']),
-                currency_clean.sub('', order['totalCost']),
-                order['paymentStatus'],
-                order['deliveryDetails']['deliveryAddress'],
-                order['dishString'],
-                order['resInfo']['name'],
-                hashid,
-                itemdict[hashid]['taxes'],
-                itemdict[hashid]['delivery_charge'],
-                itemdict[hashid]['packing_charge'],
-                itemdict[hashid]['discounts'],
-            ]
-            dataset.append(row)
-
-    df = pd.DataFrame(data=dataset, columns=datacols)
-    df.to_csv(outfile, index=False)
-
-<span class="code-comment"># Usage</span>
-process_order_data('<span class="code-comment"># Complete path of your data.json file</span>', '<span class="code-comment"># Complete path of your orders.csv file</span>', '<span class="code-comment"># Complete path of your data_per_item.json file</span>')</code></pre>
-                        <br><h6>Function to Parse Item Data</h6>
-                        <pre class="code-container"><code>def parse_item_data(itemfile, itemoutfile):
-    with open(itemfile, 'r') as f:
-        datafile = json.load(f)
-
-    datacols = ['hashid', 'itemname', 'unitcost', 'totalcost', 'quantity']
-    dataset = []
-
-    for item in datafile:
-        hashid = item['hashid']
-        item_data = item['data']['details']['order']['items'].get('dish', [])
-        for dish in item_data:
-            row = [hashid, dish['itemName'], dish['unitCost'], dish['totalCost'], dish['quantity']]
-            dataset.append(row)
-
-    df = pd.DataFrame(data=dataset, columns=datacols)
-    df.to_csv(itemoutfile, index=False)
-
-<span class="code-comment"># Usage</span>
-parse_item_data('<span class="code-comment"># Complete path of your data_per_item.json file</span>', '<span class="code-comment"># Complete path of your items.csv file</span>')</code></pre>
-                        <br><hr><br>
-                        <h5>Step 4: Running the Code</h5>
-                        <p class="text-justify">After updating the headers with your actual session details and saving the scripts, you can run them in your Python environment. This will generate two CSV files (`orders.csv` and `items.csv`) in the specified directory.</p>
-                        <br><h6>Code to Execute the Functions</h6>
-                        <pre class="code-container"><code>if __name__ == "__main__":
-    <span class="code-comment"># Extract detailed order information</span>
-    parse_item_data('<span class="code-comment"># Complete path of your data_per_item.json file</span>', '<span class="code-comment"># Complete path of your items.csv file</span>')
-
-    <span class="code-comment"># Process order data</span>
-    process_order_data('<span class="code-comment"># Complete path of your data.json file</span>', '<span class="code-comment"># Complete path of your orders.csv file</span>', '<span class="code-comment"># Complete path of your data_per_item.json file</span>')</code></pre>
-                        <br><hr><br>
-                        <h5>Conclusion</h5>
-                        <p class="text-justify">In this blog post, we have explored how to use Zomato's API to scrape order data. We fetched paginated order data, extracted detailed order information, and transformed the data into CSV files for analysis. This dataset can now be easily analysed using tools like Tableau, Power BI, or Excel.</p>
                         <br>
+                        <hr>
+                        <br>
+                        
+                        <h5>Setting the Stage for a Groundbreaking Trial</h5>
+                        
+                        <p class="text-justify">AutonomousShipment is preparing for a one-month trial around Leeds to evaluate their four robot drone models. The trial's primary goal is to improve operational efficiency and enhance the customer experience, all while staying within the allocated budget. The management team has identified two critical tasks for this trial:</p>
+                        
+                        1. Selecting the Optimal Robot Model<br>
+                        2. Allocating Robots to Various Stores
+                        <br>
+                        <br>
+                        <hr>
+                        <br>
+                        
+                        <h5>Task 1: Selecting the Optimal Robot Model</h5>
+                        
+                        <p class="text-justify">The first task is to determine which robot model to use for the trial. The four prototypes under consideration are:</p>
+                        
+                        <ul class="text-justify">
+                            <li>Robot A032 (Archer)</li>
+                            <li>Robot B23 (Bowler)</li>
+                            <li>Robot CJKL (Corner)</li>
+                            <li>Robot DSXX (Deviant)</li>
+                        </ul>
+                        
+                        <br><h6>Multi-Criteria Decision Analysis (MCDA)</h6>
+                        
+                        <p class="text-justify">To make an informed decision, we utilized the TOPSIS (Technique for Order of Preference by Similarity to Ideal Solution) method. This approach evaluates each model based on several key criteria, weighted by their importance as specified by the management team:</p>
+                        
+                        <ul class="text-justify">
+                            <li>Reliability (5/5)</li>
+                            <li>Cost per Unit (4/5)</li>
+                            <li>Battery Size (3/5)</li>
+                            <li>Average Speed (2/5)</li>
+                            <li>Carrying Capacity (1/5)</li>
+                        </ul>
+
+                        <p class="text-justify">Reliability has been given the highest priority by the management and was rated 5. Cost per Unit was rated 4 as it was supposed to weigh at least 25% of the total consideration. The importance of the size of the Battery was of 3 out of 5 and it has been rated 3. Average Speed and Carrying Capacity were rated 2 and 1 respectively based on the recommendation by the team.</p>
+
+                        <table class="text-justify" border="1">
+                            <tr>
+                                <th style="padding: 5px;">Criterion</th>
+                                <th style="padding: 5px;">Rating</th>
+                                <th style="padding: 5px;">Weight</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 5px;">Carrying Capacity</td>
+                                <td style="padding: 5px;">1</td>
+                                <td style="padding: 5px;">1/15 = 0.067</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 5px;">Battery Size</td>
+                                <td style="padding: 5px;">3</td>
+                                <td style="padding: 5px;">3/15 = 0.200</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 5px;">Average Speed</td>
+                                <td style="padding: 5px;">2</td>
+                                <td style="padding: 5px;">2/15 = 0.133</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 5px;">Cost per Unit</td>
+                                <td style="padding: 5px;">4</td>
+                                <td style="padding: 5px;">4/15 = 0.267</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 5px;">Reliability</td>
+                                <td style="padding: 5px;">5</td>
+                                <td style="padding: 5px;">5/15 = 0.333</td>
+                            </tr>
+                        </table>
+
+                        <br>
+                        <hr>
+                        <br>
+                        
+                        <br><h6>TOPSIS Analysis</h6>
+                        
+                        <p class="text-justify">TOPSIS is ideal for this scenario as it considers both the best and worst possible outcomes for each criterion. By calculating the Euclidean distance of each option from these ideal and non-ideal points, TOPSIS provides a clear ranking of alternatives. This method helps us balance multiple criteria, maximizing those that benefit us (like reliability and battery size) and minimizing costs.</p>
+                        
+                        <img src="img/bloglpfig1-1.png" alt="Image" style="width: 750px;"><br>
+                        <img src="img/bloglpfig1-2.png" alt="Image" style="width: 750px;"><br>
+                        <img src="img/bloglpfig1-3.png" alt="Image" style="width: 750px;"><br>
+                        <i>Figure 1: TOPSIS Analysis.</i><br><br>
+
+                        <p class="text-justify">After a thorough analysis using TOPSIS, Robot DSXX (Deviant) emerged as the top choice. Here's why Deviant stands out:</p>
+                        
+                        <img src="img/bloglpfig2.png" alt="Image" style="width: 750px;"><br>
+                        <i>Figure 2: TOPSIS Score of Robots.</i><br><br>
+
+                        <ul class="text-justify">
+                            <li>Reliability: High reliability, ensuring maximum uptime and minimal disruptions.</li>
+                            <li>Battery Size: Lasts up to 24 hours, reducing the need for frequent charging.</li>
+                            <li>Average Speed: 10 km/h, enabling faster deliveries.</li>
+                        </ul>
+                        
+                        <p class="text-justify">Thus, Robot DSXX (Deviant) is recommended for the trial, promising efficient and reliable delivery performance.</p>
+                        
+                        <br>
+                        <hr>
+                        <br>
+                        
+                        <h5>Task 2: Allocating Robots to Different Stores</h5>
+                        
+                        <p class="text-justify">With Robot DSXX selected, the next task involves strategically deploying these robots to grocery, clothing, and sports equipment stores. The objectives are clear:</p>
+                        
+                        <ul class="text-justify">
+                            <li>Stay within the budget of 250,000 GBP.</li>
+                            <li>Ensure each store has a minimum of 5 robots.</li>
+                            <li>Maximize order completions while adhering to technical support constraints.</li>
+                        </ul>
+                        
+                        <br><h6>Cost and Operational Considerations</h6>
+                        
+                        <p class="text-justify">Here’s a breakdown of the costs associated with deploying the Deviant robots:</p>
+                        
+                        <table class="text-justify" border="1">
+                            <tr>
+                                <th style="padding: 5px;">Store Type</th>
+                                <th style="padding: 5px;">Purchase Cost (GBP)</th>
+                                <th style="padding: 5px;">Operating Cost (GBP/Month)</th>
+                                <th style="padding: 5px;">Total Cost (GBP)</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 5px;">Grocery</td>
+                                <td style="padding: 5px;">7,100</td>
+                                <td style="padding: 5px;">1,600</td>
+                                <td style="padding: 5px;">8,700</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 5px;">Clothing</td>
+                                <td style="padding: 5px;">7,100</td>
+                                <td style="padding: 5px;">1,000</td>
+                                <td style="padding: 5px;">8,100</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 5px;">Sports Equipment</td>
+                                <td style="padding: 5px;">7,100</td>
+                                <td style="padding: 5px;">600</td>
+                                <td style="padding: 5px;">7,700</td>
+                            </tr>
+                        </table>
+                        
+                        <br><br><h6>Linear Programming</h6>
+                        
+                        <p class="text-justify">Linear Programming allows us to handle multiple conflicting objectives efficiently. In this case, we needed to maximize order completions while adhering to budget and technical support constraints. LP provides a systematic approach to finding the optimal solution that balances these competing goals.</p>
+                        
+                        <img src="img/bloglpfig3.png" alt="Image" style="width: 350px;"><br>
+                        <i>Figure 3: Linear Programming.</i><br><br>
+
+                        <p class="text-justify">Using Linear Programming, we formulated a plan that optimizes robot allocation:</p>
+                        
+                        <img src="img/bloglpfig4.png" alt="Image" style="width: 750px;"><br>
+                        <i>Figure 4: Formulated Allocation of Robots.</i><br><br>
+
+                        <ul class="text-justify">
+                            <li>Grocery Stores: 19 robots</li>
+                            <li>Clothing Stores: 5 robots</li>
+                            <li>Sports Equipment Stores: 5 robots</li>
+                        </ul>
+                        
+                        <p class="text-justify">This distribution ensures:</p>
+                        
+                        <ul class="text-justify">
+                            <li>Total trial cost: 244,300 GBP, within the budget.</li>
+                            <li>Technician support: 250 hours per week, fully utilized.</li>
+                            <li>Order completion capacity: Up to 221 orders per day.</li>
+                        </ul>
+                        
+                        <br>
+                        <hr>
+                        <br>
+                        
+                        <h5>Summary and Strategic Insights</h5>
+                        
+                        <p class="text-justify">AutonomousShipment's trial with Robot DSXX (Deviant) is set to pave the way for a new era in last-mile delivery. Here's a recap of our strategic plan:</p>
+                        
+                        <ul class="text-justify">
+                            <li>Deploy 29 Deviant robots: 19 for grocery, 5 each for clothing and sports equipment stores.</li>
+                            <li>Cost-efficient: Expected trial cost of 244,300 GBP.</li>
+                            <li>Maximized operational efficiency: Capable of delivering 221 orders per day with optimal technician support.</li>
+                        </ul>
+                        
+                        <p class="text-justify">By leveraging Robot DSXX, AutonomousShipment is poised to enhance delivery reliability and customer satisfaction, all while maintaining a cost-effective and technologically advanced approach.</p>                        
+
+
                     </p></div>
                 </div>
             </div>
@@ -398,7 +397,7 @@ parse_item_data('<span class="code-comment"># Complete path of your data_per_ite
                                     <p><!--<i class="far fa-calendar-alt"></i> April 30, 2024<br>-->
                                     <i class="fas fa-tag"></i> Optimization Analysis, Multi-Criteria Decision Analysis, R, Linear Programming</p>
                                 </div>
-                                <a class="btn" href="">View<i class="fa fa-angle-right"></i></a>
+                                <a class="btn" href="bloglp.html">View<i class="fa fa-angle-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -419,18 +418,18 @@ parse_item_data('<span class="code-comment"># Complete path of your data_per_ite
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-md-6 mb-4 portfolio-item filter-2">
+                    <div class="col-lg-4 col-md-6 mb-4 portfolio-item filter-3">
                         <div class="blog-item wow fadeInUp" data-wow-delay="0.1s">
                             <div class="portfolio-img">
-                                <img src="img/blog1.webp" alt="Blog1" class="img-fluid">
+                                <img src="img/article1.jpg" alt="Artcle1" class="img-fluid">
                             </div>
                             <div class="blog-text">
-                                <h6>Forecasting the Personal Consumption Expenditure in the United States<br></h6>
+                                <h6>Deciphering the dynamics of Voter Turnout: Evaluation of field experiments and Implications of Behaviour Change Theory<br></h6>
                                 <div class="blog-meta" style="font-size: 13px;">
                                     <p><!--<i class="far fa-calendar-alt"></i> April 30, 2024<br>-->
-                                    <i class="fas fa-tag"></i> Data Forecasting, R</p><br>
+                                    <i class="fas fa-tag"></i> Optimization Techniques</p>
                                 </div>
-                                <a class="btn" href="blogpce.html">View<i class="fa fa-angle-right"></i></a>
+                                <a class="btn" href="articlebct.html">View<i class="fa fa-angle-right"></i></a>
                             </div>
                         </div>
                     </div>
