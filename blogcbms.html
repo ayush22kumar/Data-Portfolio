@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Ayush Kumar | Data Portfolio</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Free Website Template" name="keywords">
+        <meta content="Free Website Template" name="description">
+
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="icon">
+
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+        <!-- CSS Libraries -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="lib/animate/animate.min.css" rel="stylesheet">
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+
+        <link rel="icon" href="img/portfolio-icon.png" sizes="16x16" type="image/png">
+	    <link rel="icon" href="img/portfolio-icon.png" sizes="32x32" type="image/png">
+	    <link rel="icon" href="img/portfolio-icon.png" sizes="48x48" type="image/png">
+	    <link rel="icon" href="img/portfolio-icon.png" sizes="64x64" type="image/png">
+	    <link rel="icon" href="img/portfolio-icon.png" sizes="128x128" type="image/png">
+    </head>
+
+    <body data-spy="scroll" data-target=".navbar" data-offset="51">
+        <!-- Nav Bar Start -->
+        <div class="navbar navbar-expand-lg bg-light navbar-light">
+            <div class="container-fluid">
+                <a href="index.html" class="navbar-brand">AYUSH KUMAR</a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto">
+                        <!--<a href="#currentblog" class="nav-item nav-link">Blog</a>-->
+                        <a href="index.html" class="nav-item nav-link">Home</a>
+                        <a href="#portfolio" class="nav-item nav-link">Portfolio</a>
+                        <a href="#contact" class="nav-item nav-link">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Nav Bar End -->
+
+
+        <!-- Hero Start -->
+        <div class="hero" id="currentblog">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-sm-10">
+                        <div class="hero-content">
+                            <div class="hero-text">
+                                <p>Recommending Marketing Strategy: Optimizing Revenue Through Customer Behavior Data</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Hero End -->
+
+
+        <!-- About Start -->
+        <div class="service" data-wow-delay="0.1s" id="about">
+            <div class="container-fluid">
+                
+                <div class="container banner-text text-left" style="max-width: 800px;">
+                    <p class="text-justify">
+              
+                        <p class="text-justify">
+                            <h5>Business Understanding</h5>
+                            <p class="text-justify">
+                                Drinks@Home.uk is a UK-based e-commerce website that sells and delivers both alcoholic and non-alcoholic beverages across Great Britain. The company aims to gain an in-depth understanding of the factors driving their sales through data analysis of existing customers. This analysis will help revise their marketing strategies to increase sales.
+                            </p>
+                            <p class="text-justify">
+                                The key objectives are to:
+                            </p>
+                            <ul class="text-justify">
+                                <li>Demonstrate how key variables affect customer spending.</li>
+                                <li>Recommend the marketing strategy most likely to increase company revenue.</li>
+                            </ul>
+                        </p>
+                    
+                        <br><hr><br>
+                    
+                        <p class="text-justify">
+                            <h5>Data Understanding</h5>
+                            <p class="text-justify">
+                                The dataset provided by Drinks@Home.uk contains information about 400 customers, including estimated age, advertisement exposure, estimated income, time spent on the website, voucher availability, and revenue. Key insights from this data will help in choosing an appropriate analytics model to uncover the influencing factors of customer spending.
+                            </p>
+                            <img src="img/blogcbmsfig2.png" alt="Data Summary" style="width: 750px;">
+                            <i>Figure 1: Data Summary.</i>
+                            <br><br>
+                            <h6>Revenue Analysis</h6>
+                            <p class="text-justify">
+                                The histogram of revenue indicates a slight right skew, with most customers spending between £50 and £100.
+                            </p>
+                            <img src="img/blogcbmsfig1.png" alt="Revenue Histogram" style="width: 750px;">
+                            <i>Figure 2: Revenue Histogram.</i>
+                            <br><br>
+                            <h6>Correlation Matrix</h6>
+                            <p class="text-justify">
+                                The correlation matrix shows a strong positive correlation between revenue and both Seen_Voucher and Estimated_Income. Revenue also has a positive correlation with Advertisement_Channel but negligible linear relationships with Estimated_Age and Time_On_Site.
+                            </p>
+                            <img src="img/blogcbmsfig3.png" alt="Correlation Matrix" style="width: 750px;">
+                            <i>Figure 3: Correlation Matrix.</i>
+                            <br><br>
+                            <h6>Scatter Plots</h6>
+                            <p class="text-justify">
+                                Further analysis using scatter plots confirms that revenue positively correlates with Estimated_Income and Seen_Voucher. This indicates that offering vouchers significantly increases revenue.
+                            </p>
+                            <img src="img/blogcbmsfig4.png" alt="Scatter Plot - Revenue vs Estimated_Income and Seen_Voucher" style="width: 750px;">
+                            <i>Figure 4: Scatter Plot - Revenue vs Estimated_Income and Seen_Voucher.</i>
+                        </p>
+                    
+                        <br><hr><br>
+                    
+                        <p class="text-justify">
+                            <h5>Data Preparation</h5>
+                            <h6>Creating Dummy Variables</h6>
+                            <p class="text-justify">
+                                For robust regression modeling, categorical variables like Advertisement_Channel need to be converted into dummy variables. The Advertisement_Channel has four values: Leaflet, SocialMedia, SearchEngine, and Influencer. By creating dummy variables, we can analyze the influence of each channel individually on revenue.
+                            </p>
+                            <table class="text-justify" border="1">
+                                    <tr>
+                                        <th style="padding: 5px;">Advertisement_Channel</th>
+                                        <th style="padding: 5px;">Leaflet</th>
+                                        <th style="padding: 5px;">SocialMedia</th>
+                                        <th style="padding: 5px;">Influencer</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px;">Leaflet</td>
+                                        <td style="padding: 5px;">1</td>
+                                        <td style="padding: 5px;">0</td>
+                                        <td style="padding: 5px;">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px;">SocialMedia</td>
+                                        <td style="padding: 5px;">0</td>
+                                        <td style="padding: 5px;">1</td>
+                                        <td style="padding: 5px;">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px;">SearchEngine</td>
+                                        <td style="padding: 5px;">0</td>
+                                        <td style="padding: 5px;">0</td>
+                                        <td style="padding: 5px;">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px;">Influencer</td>
+                                        <td style="padding: 5px;">0</td>
+                                        <td style="padding: 5px;">0</td>
+                                        <td style="padding: 5px;">1</td>
+                                    </tr>
+                            </table>
+                            <br><br>
+                            <h6>Identifying and Handling Outliers</h6>
+                            <p class="text-justify">
+                                Outliers are extreme observations that can distort analysis. A box plot of the revenue and estimated income shows some highly deviated values. These were handled by selecting values as extreme as 1.5 times the IQR and creating a subset of the data. After removing outliers, the dataset contained 368 observations, ensuring a more accurate analysis.
+                            </p>
+                            <img src="img/blogcbmsfig5.png" alt="Box Plot of Revenue and Estimated_Income" style="width: 750px;">
+                            <i>Figure 5: Box Plot of Revenue and Estimated_Income.</i><br><br>
+                            <img src="img/blogcbmsfig6.png" alt="Box Plot of Revenue and Estimated_Income after Handling Outliers" style="width: 750px;">
+                            <i>Figure 6: Box Plot of Revenue and Estimated_Income after Handling Outliers.</i>
+                        </p>
+                    
+                        <br><hr><br>
+                    
+                        <p class="text-justify">
+                            <h5>Data Modelling</h5>
+                            <p class="text-justify">
+                                A multiple linear regression model was selected to describe the relationship between customer variables and revenue. The final model includes Seen_Voucher, Estimated_Income, and dummy variables for Advertisement_Channel (Leaflet, SocialMedia, and Influencer).
+                            </p>
+                            <img src="img/blogcbmsfig7.png" alt="Data Modelling" style="width: 750px;">
+                            <i>Figure 7: Multiple Linear Regression.</i><br><br>
+                            <p class="text-justify">
+                                The model, based on the pre-processed data, produced an Adjusted R-squared of 0.5897, explaining almost 59% of the variance in revenue. High F-statistic and low p-value confirm the statistical significance of the data. Coefficients for Seen_Voucher, Estimated_Income, and Influencer advertisements were positive, indicating that increases in these variables lead to notable revenue increases.
+                            </p>
+                        </p>
+                    
+                        <br><hr><br>
+                    
+                        <p class="text-justify">
+                            <h5>Evaluation</h5>
+                            <h6>1. Advertising for Customers Over 45</h6>
+                            <p class="text-justify">
+                                There was no significant correlation between age and revenue, suggesting that targeting customers over 45 would not be effective.
+                            </p>
+                            <img src="img/blogcbmsfig8.png" alt="Customer Age Distribution" style="width: 750px;">
+                            <i>Figure 8: Customer Age Distribution.</i><br><br>
+                            <h6>2. Providing a £20 Voucher</h6>
+                            <p class="text-justify">
+                                Offering a £20 voucher showed a strong positive correlation with revenue, making this strategy highly recommended.
+                            </p>
+                            <img src="img/blogcbmsfig9.png" alt="Box Plot of Seen_Voucher vs. Revenue" style="width: 750px;">
+                            <i>Figure 9: Box Plot of Seen_Voucher vs. Revenue.</i><br><br>
+                            <h6>3. Influencer Advertising</h6>
+                            <p class="text-justify">
+                                While influencer advertisements positively correlate with revenue, their impact is less significant compared to vouchers. Therefore, this strategy is not preferred over providing vouchers.
+                            </p>
+                            <img src="img/blogcbmsfig10.png" alt="Scatter Plot of Seen_Voucher and Influencer with Revenue" style="width: 750px;">
+                            <i>Figure 10: Scatter Plot of Seen_Voucher and Influencer with Revenue.</i><br><br>
+                            <h6>Evaluating the Model</h6>
+                            <p class="text-justify">
+                                The multiple linear regression model successfully meets the necessary assumptions and offers a clear solution to the company's business questions. The residuals are fairly distributed across the quadrants, with a median value near zero. Additionally, the scatterplot of Actual vs. Predicted values indicates that most data points align closely with the regression line. Therefore, we can conclude that the model is optimal.
+                            </p>
+                            <img src="img/blogcbmsfig11.png" alt="Scatter Plot of Predicted Revenue with Actual and Residuals" style="width: 750px;">
+                            <i>Figure 11: Scatter Plot of Predicted Revenue with Actual and Residuals.</i>
+
+                        </p>
+                    
+                        <br><hr><br>
+                    
+                        <p class="text-justify">
+                            <h5>Conclusion</h5>
+                            <p class="text-justify">
+                                The key variables affecting the company's revenue are voucher availability, estimated income, and leaflet advertisements. Providing £20 vouchers and targeting customers based on their income levels are effective strategies. Influencer advertisements have a positive impact but are less significant than vouchers.
+                            </p>
+                            <p class="text-justify">
+                                To boost revenue, Drinks@Home.uk should continue offering £20 vouchers and focus less on leaflet advertisements and targeting customers over 45, as these strategies do not significantly impact revenue.
+                            </p>
+                        </p>
+                        <br><hr><br>
+                    </p></div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+
+
+        <!-- Portfolio Start -->
+        <div class="portfolio" id="portfolio">
+            <div class="container">
+                <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
+                    <p>My Portfolio</p>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <ul id="portfolio-filter">
+                            <li data-filter="*" class="filter-active">All</li>
+                            <li data-filter=".filter-1">Projects</li>
+                            <li data-filter=".filter-2">Blogs</li>
+                            <li data-filter=".filter-3">Articles</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row portfolio-container">
+                    <div class="col-lg-4 col-md-6 mb-4 portfolio-item filter-1">
+                        <div class="blog-item wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="portfolio-img">
+                                <img src="img/project3.png" alt="Project3" class="img-fluid">
+                            </div>
+                            <div class="blog-text">
+                                <h6>Evaluating the Magnitude of Prejudice in Media Reporting and its Impact on Voters’ Judgement<br></h6>
+                                <div class="blog-meta" style="font-size: 13px;">
+                                    <p><!--<i class="far fa-calendar-alt"></i> August 30, 2024<br>-->
+                                    <i class="fas fa-tag"></i> Descriptive Analysis, Hypothesis Testing, Sentiment Analysis</p>
+                                </div>
+                                <a class="btn" href="projectmsa.html">Ongoing<i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4 portfolio-item filter-1">
+                        <div class="blog-item wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="portfolio-img">
+                                <img src="img/project2.png" alt="Project2" class="img-fluid">
+                            </div>
+                            <div class="blog-text">
+                                <h6>Building a Scalable Data Pipeline for UK Grocery Price Analysis: A Real-Time Retail Insights Project<br></h6>
+                                <div class="blog-meta" style="font-size: 13px;">
+                                    <p><!--<i class="far fa-calendar-alt"></i> June 23, 2024<br>-->
+                                    <i class="fas fa-tag"></i> Data Engineering, ETL Pipeline, Cloud-Based Analytics, Automated Web Scraping</p>
+                                </div>
+                                <a class="btn" href="projectgroc.html">View<i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4 portfolio-item filter-1">
+                        <div class="blog-item wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="portfolio-img">
+                                <img src="img/project1.png" alt="Project1" class="img-fluid">
+                            </div>
+                            <div class="blog-text">
+                                <h6>Comprehensive Year-End Sales and Performance Analysis for Universal Export<br></h6>
+                                <div class="blog-meta" style="font-size: 13px;">
+                                    <p><!--<i class="far fa-calendar-alt"></i> April 30, 2024<br>-->
+                                    <i class="fas fa-tag"></i> Data Cleaning, Data Transformation, Power BI, Data Visualisation</p>
+                                </div>
+                                <a class="btn" href="projectue.html">View<i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4 portfolio-item filter-2">
+                        <div class="blog-item wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="portfolio-img">
+                                <img src="img/blog4.png" alt="Blog4" class="img-fluid">
+                            </div>
+                            <div class="blog-text">
+                                <h6>Strategic Analysis and Decision-Making for SparkSwift: Entering the Autonomous EV Market in Esperanto<br></h6>
+                                <div class="blog-meta" style="font-size: 13px;">
+                                    <p><!--<i class="far fa-calendar-alt"></i> April 30, 2024<br>-->
+                                    <i class="fas fa-tag"></i> Business Analysis, Consulting, Data-Driven Decision Making</p>
+                                </div>
+                                <a class="btn" href="blogconsult.html">View<i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4 portfolio-item filter-3">
+                        <div class="blog-item wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="portfolio-img">
+                                <img src="img/article2.png" alt="Article2" class="img-fluid">
+                            </div>
+                            <div class="blog-text">
+                                <h6>Critical Analysis of Prospect Theory in Product Pricing: Behavioral Economics in Market Strategy<br></h6>
+                                <div class="blog-meta" style="font-size: 13px;">
+                                    <p><!--<i class="far fa-calendar-alt"></i> April 30, 2024<br>-->
+                                    <i class="fas fa-tag"></i> Behavioral Economics, Pricing Strategy Analysis, Risk Assessment</p>
+                                </div>
+                                <a class="btn" href="articlept.html">View<i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4 portfolio-item filter-2">
+                        <div class="blog-item wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="portfolio-img">
+                                <img src="img/blog3.png" alt="Blog3" class="img-fluid">
+                            </div>
+                            <div class="blog-text">
+                                <h6>Strategising Autonomous Delivery Trial: Maximising Delivery while Minimising the Cost and Manpower<br></h6>
+                                <div class="blog-meta" style="font-size: 13px;">
+                                    <p><!--<i class="far fa-calendar-alt"></i> April 30, 2024<br>-->
+                                    <i class="fas fa-tag"></i> Optimization Analysis, Multi-Criteria Decision Analysis, R, Linear Programming</p>
+                                </div>
+                                <a class="btn" href="bloglp.html">View<i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4 portfolio-item filter-2">
+                        <div class="blog-item wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="portfolio-img">
+                                <img src="img/blog2.jpg" alt="Blog2" class="img-fluid">
+                            </div>
+                            <div class="blog-text">
+                                <h6>Web Scraping Using API<br></h6>
+                                <div class="blog-meta" style="font-size: 13px;">
+                                    <p><!--<i class="far fa-calendar-alt"></i> April 30, 2024<br>-->
+                                    <i class="fas fa-tag"></i> Data Scraping, Python</p><br><br><br>
+                                </div>
+                                <a class="btn" href="blogws.html">View<i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4 portfolio-item filter-2">
+                        <div class="blog-item wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="portfolio-img">
+                                <img src="img/blog1.webp" alt="Blog1" class="img-fluid">
+                            </div>
+                            <div class="blog-text">
+                                <h6>Forecasting the Personal Consumption Expenditure in the United States<br></h6>
+                                <div class="blog-meta" style="font-size: 13px;">
+                                    <p><!--<i class="far fa-calendar-alt"></i> April 30, 2024<br>-->
+                                    <i class="fas fa-tag"></i> Data Forecasting, R</p><br>
+                                </div>
+                                <a class="btn" href="blogpce.html">View<i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4 portfolio-item filter-3">
+                        <div class="blog-item wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="portfolio-img">
+                                <img src="img/article1.jpg" alt="Artcle1" class="img-fluid">
+                            </div>
+                            <div class="blog-text">
+                                <h6>Deciphering the dynamics of Voter Turnout: Evaluation of field experiments and Implications of Behaviour Change Theory<br></h6>
+                                <div class="blog-meta" style="font-size: 13px;">
+                                    <p><!--<i class="far fa-calendar-alt"></i> April 30, 2024<br>-->
+                                    <i class="fas fa-tag"></i> Optimization Techniques</p>
+                                </div>
+                                <a class="btn" href="articlebct.html">View<i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio End -->
+
+
+        <!-- Footer Start -->
+        <div class="footer wow fadeIn" data-wow-delay="0.3s" id="contact">
+            <div class="container-fluid">
+                <div class="container">
+                    <div class="footer-info">
+                        <div class="section-header text-center">
+                            <h7 style="background-color: #607274; color: #F8EDE3;"><b>GET IN TOUCH</b></h7>
+                        </div>
+                        <h2>Ayush Kumar</h2>
+                        <h3>Leeds, United Kingdom</h3>
+                        <div class="footer-social">
+                            <a href="tel:+447425628440"><i class="fas fa-phone-alt"></i></a>
+                            <a href="mailto:ayush22kumar97@gmail.com"><i class="fas fa-envelope"></i></a>
+                            <a href="https://www.linkedin.com/in/ayush-kumar-401955117/"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://github.com/ayush22kumar97" target="_blank"><i class="fab fa-github"></i></a>
+                        </div>       
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+        
+        
+        <!-- Back to top button -->
+        <a href="#" class="btn back-to-top"><i class="fa fa-chevron-up"></i></a>
+         
+        <!-- Pre Loader -->
+        <div id="loader" class="show">
+            <div class="loader"></div>
+        </div>
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/wow/wow.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/typed/typed.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/isotope/isotope.pkgd.min.js"></script>
+        <script src="lib/lightbox/js/lightbox.min.js"></script>
+        
+        <!-- Contact Javascript File -->
+        <script src="mail/jqBootstrapValidation.min.js"></script>
+        <script src="mail/contact.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+    </body>
+</html>
